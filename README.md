@@ -11,7 +11,12 @@ and organise offline. A reference library, not a feed — no social features.
 | Path | Contents |
 |---|---|
 | `backend/` | FastAPI ingest service (Python 3.11, async, containerised) — see [backend/README.md](backend/README.md) |
-| `ios/` | SwiftUI app (iOS 17+, SwiftData) — arrives in M3 |
+| `mobile/` | Expo (React Native) app, testable on a real iPhone via **Expo Go** — see [mobile/README.md](mobile/README.md) for phone setup |
+
+> **Stack note:** the original plan specified SwiftUI/SwiftData. The app is
+> built with Expo/React Native instead so it can be tested on-device through
+> Expo Go with no Mac, Xcode, or Apple developer account. The share
+> extension (M4) will need an Expo development build rather than Expo Go.
 
 ## Milestones
 
@@ -20,10 +25,12 @@ and organise offline. A reference library, not a feed — no social features.
   contract tests.
 - [ ] **M2 — YouTube Shorts end to end.** Real resolver + Whisper +
   synthesiser for YouTube only.
-- [ ] **M3 — iOS app shell.** SwiftData model, Library, Note detail, Search,
-  manual URL paste.
-- [ ] **M4 — Share Extension.** App Group queue, fast dismiss, background
-  submission, notifications.
+- [x] **M3 — app shell.** Library, Note detail, Search, manual URL paste,
+  processing tray, favourites, offline store — delivered as an Expo app that
+  runs in Expo Go against the real backend.
+- [ ] **M4 — Share Extension.** Share-sheet ingest, background submission,
+  notifications (requires an Expo dev build; a Shortcuts-based stand-in is
+  documented in mobile/README.md).
 - [ ] **M5 — Vision path.** Keyframes → VLM observations → merged synthesis.
 - [ ] **M6 — Multi-platform.** TikTok / Instagram / Facebook resolvers with
   graceful degradation.

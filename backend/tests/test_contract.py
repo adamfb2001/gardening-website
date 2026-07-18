@@ -14,6 +14,19 @@ def test_healthz(client):
     assert response.json()["status"] == "ok"
 
 
+def test_cors_preflight_allows_browser_clients(client):
+    response = client.options(
+        "/v1/jobs",
+        headers={
+            "Origin": "http://localhost:8081",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "authorization,content-type",
+        },
+    )
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "*"
+
+
 def test_create_job_matches_contract_shape(submit):
     body = submit(SHORT_URL)
     assert set(body) == {"job_id", "status", "dedup_of"}

@@ -21,3 +21,7 @@ class Settings(BaseSettings):
 
     rate_limit_per_hour: int = 30
     rate_limit_per_day: int = 200
+
+    # Comma-separated allowed origins for browser clients (the native app
+    # doesn't need CORS). Empty string disables the middleware.
+    cors_allow_origins: str = "*"

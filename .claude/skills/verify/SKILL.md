@@ -35,6 +35,27 @@ Stub URL markers (see backend/README.md) drive every failure path:
 `stub-nospeech`, `stub-crash`; unsupported hosts (e.g. vimeo.com) fail with
 `unsupported_platform`.
 
+## Mobile app (mobile/, Expo)
+
+No phone in this environment — drive the web build in the bundled Chromium
+instead (same JS, same store/API logic as Expo Go):
+
+```bash
+cd mobile
+npx tsc --noEmit                                   # typecheck
+CI=1 npx expo export --platform web --output-dir /tmp/export-web
+(cd /tmp/export-web && python3 -m http.server 8081 &)   # serve static build
+# backend must be running on :8000 (CORS is enabled by default)
+```
+
+Then Playwright (`npm i playwright` in scratchpad; launch with
+`executablePath: '/opt/pw-browsers/chromium'`, viewport 390×844) against
+http://localhost:8081. Gotchas: navigate to /settings via the in-app link
+(the static server doesn't rewrite paths); `getByText` needs
+`{ exact: true }` for PROCESSING/Failed (substring collisions); inputs carry
+`data-testid` `url-input`, `search-input`, `baseurl-input`. Also run
+`CI=1 npx expo export --platform ios` to confirm the native bundle compiles.
+
 ## Worth checking after changes
 
 - Enqueue latency (must stay milliseconds — the share sheet depends on it).

@@ -11,6 +11,7 @@ from contextlib import asynccontextmanager
 from typing import AsyncIterator, Optional
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from . import __version__
 from .config import Settings
@@ -38,6 +39,15 @@ def create_app(settings: Optional[Settings] = None) -> FastAPI:
         description="Turns short-form video URLs into structured, searchable notes.",
         lifespan=lifespan,
     )
+    origins = [origin.strip() for origin in settings.cors_allow_origins.split(",") if origin.strip()]
+    if origins:
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=origins,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
+
     app.state.settings = settings
     app.state.store = store
     app.state.limiter = RateLimiter(settings.rate_limit_per_hour, settings.rate_limit_per_day)
