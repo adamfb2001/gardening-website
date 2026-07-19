@@ -5,6 +5,14 @@ with no Mac, no Xcode, and no Apple developer account. Implements the M3
 shell: library, search, note detail, manual link ingest, processing tray with
 live status, favourites, and settings — talking to the ClipNotes backend.
 
+> **Pinned to Expo SDK 54 on purpose.** The App Store's Expo Go build (54.x)
+> runs exactly one SDK version, and newer SDKs exist on npm before Expo Go
+> supports them. If you ever see *"Project is incompatible with this version
+> of Expo Go"*, the project and the store app have drifted apart again —
+> check the store's Expo Go version number (it tracks the SDK it supports)
+> and align the project with
+> `npx expo install expo@^<that version> && npx expo install --fix`.
+
 ## Test it on your iPhone
 
 **Prerequisites:** [Expo Go](https://apps.apple.com/app/expo-go/id982107779)
@@ -50,6 +58,18 @@ Verify under Settings → "Test connection".
 - Search, category chips, favourites, duplicate detection (paste the same
   link twice), delete-all in Settings.
 - Offline: once notes exist, airplane mode — reading and searching still work.
+
+### If you updated the repo and the app won't load
+
+Dependency versions change with the pinned SDK — after `git pull`, refresh
+the install and clear Metro's cache:
+
+```bash
+cd mobile
+rm -rf node_modules
+npm install
+npx expo start -c
+```
 
 ### If the QR connection fails
 

@@ -7,8 +7,8 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export function useTheme() {
+  // RN's useColorScheme can return null (and newer versions 'unspecified');
+  // anything that isn't explicitly dark renders the light palette.
   const scheme = useColorScheme();
-  const theme = scheme === 'unspecified' ? 'light' : scheme;
-
-  return Colors[theme];
+  return Colors[scheme === 'dark' ? 'dark' : 'light'];
 }
