@@ -48,6 +48,9 @@ export interface NoteData {
   tags: string[];
   confidence: Confidence;
   caveats: string[];
+  transcript?: string | null;
+  creator_handle?: string | null;
+  video_title?: string | null;
 }
 
 export interface JobError {

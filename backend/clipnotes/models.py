@@ -102,6 +102,11 @@ class Note(BaseModel):
     tags: list[str] = Field(default_factory=list)
     confidence: Confidence
     caveats: list[str] = Field(default_factory=list)
+    # Filled in by the backend from media metadata (not by the synthesiser):
+    # attribution back to the creator, and the transcript for search/reading.
+    transcript: Optional[str] = None
+    creator_handle: Optional[str] = None
+    video_title: Optional[str] = None
 
 
 class JobError(BaseModel):
@@ -133,6 +138,8 @@ class TranscriptSegment(BaseModel):
 class Transcript(BaseModel):
     language: str
     segments: list[TranscriptSegment]
+    # Mean word probability reported by the ASR model (0..1), when available.
+    audio_confidence: Optional[float] = None
 
     @property
     def full_text(self) -> str:

@@ -1,10 +1,23 @@
 # ClipNotes backend
 
 FastAPI service that turns short-form video URLs into structured, searchable
-notes. **Current state: M1** — the full API contract, device auth, job queue,
-and worker pool are real; the media pipeline (resolver → Whisper → vision →
-synthesis) is stubbed and produces clearly-labelled placeholder notes. M2
-replaces the stubs for YouTube Shorts.
+notes. The pipeline is **real by default**:
+
+1. **Resolve** — yt-dlp fetches the video's metadata (title, creator,
+   duration, thumbnail) for YouTube Shorts, TikTok, Instagram Reels, and
+   Facebook Reels (non-YouTube platforms are best-effort and fail with
+   honest, typed errors when the platform blocks access).
+2. **Transcribe** — the audio track is downloaded to a temp dir and
+   transcribed with **local Whisper** (faster-whisper; no API key needed; the
+   model auto-downloads on first use). The media file is deleted the moment
+   transcription ends — only text is kept.
+3. **Synthesise** — with `ANTHROPIC_API_KEY` set on the backend, Claude turns
+   the transcript into distilled notes (key points, steps, quotes, category,
+   honest caveats), schema-validated. Without a key, a heuristic synthesiser
+   produces extractive notes that say plainly they were built without AI.
+
+The vision path (on-screen text/frames) is not built yet — every note carries
+`confidence.visual = 0` and a caveat saying so.
 
 ## Quickstart
 
@@ -54,8 +67,9 @@ human-readable `message` and a `retryable` flag. Rate limit: 30 jobs/hour,
 
 ## Stub pipeline markers
 
-Until M2 lands, URL substrings drive every path for client development and
-tests (any supported-platform URL works around them):
+With `CLIPNOTES_PIPELINE_MODE=stub` the deterministic placeholder pipeline
+runs instead (used by the test suite; handy for offline UI work). URL
+substrings then drive every path:
 
 | Marker in URL | Result |
 |---|---|
@@ -77,12 +91,24 @@ Environment variables, all prefixed `CLIPNOTES_`:
 | Variable | Default | Notes |
 |---|---|---|
 | `SECRET_KEY` | dev value | **Must** be set in deployments; signs device tokens |
+| `PIPELINE_MODE` | `auto` | `real` (yt-dlp + Whisper), `stub`, or `auto` (real, degrading to stub only if deps are missing) |
+| `WHISPER_MODEL` | `base` | faster-whisper model: `tiny`/`base`/`small`/`large-v3` — bigger = better + slower |
+| `SYNTHESIS_MODE` | `auto` | `claude` / `heuristic` / `auto` (Claude when an Anthropic credential env var is present) |
+| `ANTHROPIC_MODEL` | `claude-opus-4-8` | Model used for note synthesis |
 | `TOKEN_TTL_DAYS` | 180 | |
-| `WORKER_CONCURRENCY` | 2 | |
-| `STAGE_DELAY_SECONDS` | 0.2 | Simulated per-stage latency of the stub pipeline; 0 in tests |
-| `MAX_DURATION_SECONDS` | 300 | Duration cap (spec §4.1) |
+| `WORKER_CONCURRENCY` | 2 | Transcriptions are serialised regardless (CPU-bound) |
+| `STAGE_DELAY_SECONDS` | 0.2 | Simulated per-stage latency of the **stub** pipeline; 0 in tests |
+| `MAX_DURATION_SECONDS` | 300 | Duration cap |
 | `DEDUP_WINDOW_HOURS` | 24 | |
 | `RATE_LIMIT_PER_HOUR` / `RATE_LIMIT_PER_DAY` | 30 / 200 | |
+
+`ANTHROPIC_API_KEY` (unprefixed — it's the SDK's own variable) enables Claude
+synthesis. The key lives only on the backend; the app never sees it.
+
+> **Hosting note:** video platforms bot-block many datacenter/VPN IPs (media
+> downloads 403 even though metadata works). Running the backend on a home
+> network avoids this; failures surface as an honest, retryable
+> `media_unavailable` error.
 
 ## Tests
 
@@ -103,19 +129,21 @@ docker run -p 8000:8000 -e CLIPNOTES_SECRET_KEY=<random-32B+> clipnotes-backend
 
 ## Layout
 
-| Module | Responsibility | M1 status |
-|---|---|---|
-| `clipnotes/main.py` | App factory; singletons on `app.state` | real |
-| `clipnotes/routes/` | HTTP endpoints | real |
-| `clipnotes/auth.py` | Device registration, JWT verify | real |
-| `clipnotes/ratelimit.py` | Sliding-window per-device limits | real (in-memory) |
-| `clipnotes/store.py` | Job persistence | real logic, in-memory (jobs are transient; notes live on-device) |
-| `clipnotes/worker.py` | Async worker pool, job lifecycle, duration cap | real |
-| `clipnotes/urls.py` | URL canonicalisation + platform detection | real |
-| `clipnotes/pipeline/base.py` | Stage interfaces (Resolver/Transcriber/Vision/Synthesiser) | real seams |
-| `clipnotes/pipeline/stub.py` | Placeholder implementations | **stub — replaced from M2** |
+| Module | Responsibility |
+|---|---|
+| `clipnotes/main.py` | App factory; singletons on `app.state` |
+| `clipnotes/routes/` | HTTP endpoints |
+| `clipnotes/auth.py` | Device registration, JWT verify |
+| `clipnotes/ratelimit.py` | Sliding-window per-device limits (in-memory) |
+| `clipnotes/store.py` | Job persistence (in-memory; jobs are transient — notes live on-device) |
+| `clipnotes/worker.py` | Async worker pool, job lifecycle, duration cap |
+| `clipnotes/urls.py` | URL canonicalisation + platform detection |
+| `clipnotes/pipeline/base.py` | Stage interfaces (Resolver/Transcriber/Vision/Synthesiser) |
+| `clipnotes/pipeline/real.py` | yt-dlp resolver + downloader, local Whisper transcription |
+| `clipnotes/pipeline/synth.py` | Claude synthesis (schema-validated) + keyless heuristic fallback |
+| `clipnotes/pipeline/stub.py` | Deterministic placeholders (tests, offline UI work) |
 
-Design notes: media is never persisted (only derived notes — spec §7);
-stub notes are explicit about being placeholders (never-fabricate rule);
-resolvers are pluggable per platform so one can be disabled by config
-without touching the pipeline.
+Design notes: media files are never persisted — deleted within the job's
+lifetime, only transcript + metadata retained; every note is honest about
+uncertainty (ASR confidence, missing vision path, heuristic-vs-AI synthesis);
+failures are typed and user-facing, never silent.

@@ -16,7 +16,19 @@ sleep 1.5 && curl -s http://127.0.0.1:8123/healthz   # {"status":"ok",...}
 ```
 
 Stop it with `pkill -f "uvicorn[ ]clipnotes"` — the `[ ]` bracket trick is
-required or pkill matches your own shell's command line and kills it.
+required or pkill matches your own shell's command line and kills it. The
+kill must also run in its OWN Bash call: a compound command that both pkills
+and (re)launches contains the literal launch string, which the pattern
+matches, killing the shell (exit 144).
+
+Pipeline modes: `CLIPNOTES_PIPELINE_MODE=stub` for fast deterministic runs
+(what the tests and UI drives use); `real` for yt-dlp + Whisper. In this
+datacenter container, YouTube/TikTok metadata resolution works but media
+CDNs return 403 (bot-blocking of the egress IP) — verify the
+transcription+synthesis half by patching `WhisperTranscriber._download_audio`
+to copy a local audio file (a spoken-Wikipedia .ogg from Wikimedia Commons
+downloads fine) and calling `transcriber.transcribe(media)`; whisper "base"
+model (~75 MB) downloads from Hugging Face on first use.
 
 ## Drive the surface
 

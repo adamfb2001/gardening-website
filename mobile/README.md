@@ -36,8 +36,12 @@ Verify under Settings → "Test connection".
 
 - Open YouTube, find any Short → Share → **Copy link** → in ClipNotes tap
   **Paste link**. Watch it move through fetching → transcribing → analysing →
-  writing, then read the note. (Notes are honest placeholders until the real
-  pipeline lands in M2.)
+  writing, then read the note — **real notes from the actual audio**: the
+  backend downloads the clip, transcribes it with local Whisper (first job
+  downloads the model, so it's slower), and synthesises notes. Set
+  `ANTHROPIC_API_KEY` in the backend's environment for distilled AI notes;
+  without it you get honest extractive notes. The full transcript is on the
+  note's detail screen and is searchable.
 - Failure states: paste a link with `stub-unavailable`, `stub-private`,
   `stub-toolong` or `stub-crash` in the path (e.g.
   `https://youtube.com/shorts/stub-private`) — each fails with a specific,

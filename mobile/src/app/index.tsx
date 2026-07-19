@@ -33,6 +33,9 @@ function matchesQuery(stored: StoredNote, query: string): boolean {
     ...stored.note.quotes.map((quote) => quote.text),
     stored.note.category,
     stored.sourceUrl,
+    stored.note.transcript ?? '',
+    stored.note.creator_handle ?? '',
+    stored.note.video_title ?? '',
   ]
     .join('\n')
     .toLowerCase();

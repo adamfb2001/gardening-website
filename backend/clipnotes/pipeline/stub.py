@@ -137,7 +137,7 @@ class StubSynthesiser:
             title=f"[Stub] Notes for a {label}"[:70],
             summary=(
                 f"Placeholder summary for a {label} by {media.creator_handle}. "
-                "The processing pipeline is stubbed in M1, so this note contains sample data only."
+                "The processing pipeline is stubbed, so this note contains sample data only."
             ),
             key_points=[segment.text for segment in transcript.segments] if transcript else [obs.text for obs in observations],
             steps=[
@@ -149,6 +149,9 @@ class StubSynthesiser:
             tags=["stub", media.platform.value],
             confidence=Confidence(audio=audio_confidence, visual=0.1, overall=0.1),
             caveats=caveats,
+            transcript=transcript.full_text if transcript else None,
+            creator_handle=media.creator_handle,
+            video_title=media.title,
         )
 
 

@@ -15,7 +15,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from . import __version__
 from .config import Settings
-from .pipeline import build_stub_pipeline
+from .pipeline import build_pipeline
 from .ratelimit import RateLimiter
 from .routes import devices, jobs
 from .store import JobStore
@@ -25,7 +25,7 @@ from .worker import WorkerPool
 def create_app(settings: Optional[Settings] = None) -> FastAPI:
     settings = settings or Settings()
     store = JobStore()
-    pool = WorkerPool(store=store, settings=settings, pipeline=build_stub_pipeline(settings))
+    pool = WorkerPool(store=store, settings=settings, pipeline=build_pipeline(settings))
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:

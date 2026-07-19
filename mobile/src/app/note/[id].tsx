@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { Linking, ScrollView, StyleSheet, View } from 'react-native';
 
 import { Button, Chip, WARNING_BG, WARNING_TEXT } from '@/components/bits';
@@ -25,6 +25,7 @@ export default function NoteDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { notes, deleteNote, toggleFavourite } = useClipNotes();
+  const [showTranscript, setShowTranscript] = useState(false);
   const stored = notes.find((n) => n.id === id);
 
   if (!stored) {
@@ -69,6 +70,13 @@ export default function NoteDetailScreen() {
             Saved {new Date(stored.createdAt).toLocaleDateString()}
           </ThemedText>
         </View>
+
+        {(note.creator_handle || note.video_title) && (
+          <ThemedText type="small" themeColor="textSecondary">
+            {note.video_title ? `“${note.video_title}”` : 'Video'}
+            {note.creator_handle ? ` by ${note.creator_handle}` : ''}
+          </ThemedText>
+        )}
 
         {note.caveats.length > 0 && (
           <View style={styles.caveats}>
@@ -138,6 +146,21 @@ export default function NoteDetailScreen() {
             {Math.round(note.confidence.overall * 100)}%
           </ThemedText>
         </Section>
+
+        {note.transcript && (
+          <Section title="Transcript">
+            <Button
+              label={showTranscript ? 'Hide transcript' : 'Show transcript'}
+              kind="secondary"
+              onPress={() => setShowTranscript((visible) => !visible)}
+            />
+            {showTranscript && (
+              <ThemedText type="small" themeColor="textSecondary" testID="transcript-text">
+                {note.transcript}
+              </ThemedText>
+            )}
+          </Section>
+        )}
 
         <View style={styles.actions}>
           <Button

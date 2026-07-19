@@ -11,7 +11,12 @@ TEST_SECRET = "test-secret-0123456789abcdef-0123456789abcdef"
 
 
 def make_settings(**overrides) -> Settings:
-    defaults = dict(secret_key=TEST_SECRET, stage_delay_seconds=0.0, worker_concurrency=2)
+    defaults = dict(
+        secret_key=TEST_SECRET,
+        stage_delay_seconds=0.0,
+        worker_concurrency=2,
+        pipeline_mode="stub",
+    )
     defaults.update(overrides)
     return Settings(**defaults)
 

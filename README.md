@@ -23,8 +23,10 @@ and organise offline. A reference library, not a feed — no social features.
 - [x] **M1 — Backend skeleton.** Full API contract (jobs, device auth, rate
   limits, typed errors), async worker pool, stub pipeline, Dockerfile,
   contract tests.
-- [ ] **M2 — YouTube Shorts end to end.** Real resolver + Whisper +
-  synthesiser for YouTube only.
+- [x] **M2 — Real pipeline end to end.** yt-dlp resolver + local Whisper
+  transcription + Claude synthesis (heuristic extractive fallback without an
+  API key). YouTube Shorts is the primary path; TikTok/Reels ride the same
+  resolver best-effort with honest typed errors.
 - [x] **M3 — app shell.** Library, Note detail, Search, manual URL paste,
   processing tray, favourites, offline store — delivered as an Expo app that
   runs in Expo Go against the real backend.
