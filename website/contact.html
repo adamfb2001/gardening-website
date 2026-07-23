@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Verdant Grounds</title>
+  <meta name="description" content="Get in touch with Verdant Grounds for a free garden visit and quote. Call, email, or send us a message and we'll get right back to you." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="Verdant Grounds home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22c0-6 0-9 3-12 2-2 5-2 6-2 0 2 0 5-2 7-3 3-7 3-7 3z" />
+            <path d="M12 22c0-5 0-8-2.5-10.5C7.7 9.7 5 9.7 4 9.7c0 1.8 0 4.3 2 6.3 2.5 2.5 6 2 6 2z" />
+            <path d="M12 22V9" />
+          </svg>
+        </span>
+        <span class="brand-name">Verdant<span class="brand-accent">Grounds</span></span>
+      </a>
+
+      <nav class="nav" id="primary-nav" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#why">Why us</a>
+        <a href="index.html#stats">Results</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+        <a href="contact.html" class="btn btn-primary nav-cta">Get a quote</a>
+      </nav>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page hero -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">📮 Let's talk</span>
+        <h1>Get in touch</h1>
+        <p class="lead">
+          Tell us a little about your garden and what you need. We'll arrange a
+          free visit, take a proper look, and send you an honest, no-obligation
+          quote — usually within a day or two.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact-section">
+      <div class="container contact-grid">
+        <!-- Form -->
+        <div class="contact-form-wrap">
+          <h2>Send us a message</h2>
+          <form id="contact-form" class="contact-form" novalidate>
+            <div class="field">
+              <label for="name">Your name <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="name" name="name" autocomplete="name" required placeholder="Jane Appleseed" />
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="email" name="email" autocomplete="email" required placeholder="jane@example.com" />
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="07123 456789" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="service">What can we help with?</label>
+              <select id="service" name="service">
+                <option value="" selected>Choose a service…</option>
+                <option>Soil maintenance</option>
+                <option>De-weeding &amp; clearance</option>
+                <option>Planting &amp; potting</option>
+                <option>Lawn &amp; hedge care</option>
+                <option>Seasonal clean-up</option>
+                <option>Regular upkeep</option>
+                <option>Something else</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="message">Your message <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="message" name="message" rows="5" required placeholder="Tell us about your garden, roughly how big it is, and what you'd like sorted…"></textarea>
+            </div>
+
+            <div class="field field-check">
+              <input type="checkbox" id="consent" name="consent" required />
+              <label for="consent">I'm happy for Verdant Grounds to contact me about my enquiry.</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Send message <span class="arrow" aria-hidden="true">→</span></button>
+
+            <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
+          </form>
+        </div>
+
+        <!-- Details -->
+        <aside class="contact-info">
+          <div class="info-card">
+            <h2>Contact details</h2>
+            <ul class="info-list">
+              <li>
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z"/></svg>
+                </span>
+                <div>
+                  <span class="info-label">Call us</span>
+                  <a href="tel:+441234567890">01234 567 890</a>
+                </div>
+              </li>
+              <li>
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                </span>
+                <div>
+                  <span class="info-label">Email us</span>
+                  <a href="mailto:hello@verdantgrounds.co.uk">hello@verdantgrounds.co.uk</a>
+                </div>
+              </li>
+              <li>
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-3-7-6-7-10a7 7 0 0 1 14 0c0 4-3 7-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+                </span>
+                <div>
+                  <span class="info-label">Service area</span>
+                  <span class="info-text">Homes &amp; businesses within ~20 miles</span>
+                </div>
+              </li>
+              <li>
+                <span class="info-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                </span>
+                <div>
+                  <span class="info-label">Opening hours</span>
+                  <span class="info-text">Mon–Sat, 8am–6pm</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="info-card info-card-quiet">
+            <h3>Prefer to just chat?</h3>
+            <p>Give us a ring during opening hours and we'll happily talk through what your garden needs — no pressure, no jargon.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="brand brand-footer" aria-label="Verdant Grounds home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c0-6 0-9 3-12 2-2 5-2 6-2 0 2 0 5-2 7-3 3-7 3-7 3z" />
+              <path d="M12 22c0-5 0-8-2.5-10.5C7.7 9.7 5 9.7 4 9.7c0 1.8 0 4.3 2 6.3 2.5 2.5 6 2 6 2z" />
+              <path d="M12 22V9" />
+            </svg>
+          </span>
+          <span class="brand-name">Verdant<span class="brand-accent">Grounds</span></span>
+        </a>
+        <p>Soil care &amp; garden maintenance done properly. Serving homes and businesses across the local area.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#why">Why us</a>
+        <a href="index.html#stats">Results</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Get in touch</h4>
+        <a href="tel:+441234567890">01234 567 890</a>
+        <a href="mailto:hello@verdantgrounds.co.uk">hello@verdantgrounds.co.uk</a>
+        <span class="footer-text">Mon–Sat, 8am–6pm</span>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© <span id="year">2026</span> Verdant Grounds. All rights reserved.</span>
+      <span class="footer-made">Growing good gardens 🌱</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
