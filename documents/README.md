@@ -17,7 +17,7 @@ Two pages, no build step, no dependencies:
 Just open `index.html` in a browser, or serve the folder:
 
 ```bash
-cd website
+cd documents
 python3 -m http.server 8000
 # then open http://localhost:8000
 ```
@@ -38,7 +38,7 @@ enquiries, choose one of:
 ## Deploying
 
 Any static host works — GitHub Pages, Netlify, Vercel, Cloudflare Pages, or an
-ordinary web server. For GitHub Pages, point Pages at this `website/` folder
+ordinary web server. For GitHub Pages, point Pages at this `documents/` folder
 (or move the files to the repo root / `docs/`).
 
 ## Customising
