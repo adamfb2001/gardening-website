@@ -84,22 +84,47 @@ backend — set the backend URL by hand in the app's Settings (your machine's
 LAN IP, e.g. `http://192.168.1.23:8000`, or a public tunnel to port 8000
 such as `cloudflared`/`ngrok`).
 
-### Optional: share-sheet-ish flow via Shortcuts
+### Getting a "Save to ClipNotes" entry in the iOS share sheet (Shortcuts)
 
-Until the native share extension (needs a dev build, M4), you can approximate
-it: iOS **Shortcuts** app → new shortcut → accepts URLs from the Share Sheet →
-action "URL Encode" on the Shortcut Input → action "Open URL" with
-`exp://<your-laptop-LAN-IP>:8081/--/ingest?url=<encoded input>`. Sharing a
-video to that shortcut opens Expo Go and saves the link. Works only while
-`expo start` is running.
+Expo Go has no share extension of its own, so it can't appear in the share
+sheet's app row. A native ClipNotes target there requires a signed dev build
+(see below). As a **works-today stand-in**, an iOS **Shortcut** puts a
+"Save to ClipNotes" item in the share sheet that forwards the shared link to
+ClipNotes running in Expo Go. The receiving deep link (`/ingest?url=…`) is
+verified end-to-end.
+
+Setup (once, on the iPhone):
+
+1. Run `npx expo start` and note the `exp://<IP>:8081` URL it prints — that
+   `<IP>` is your computer's LAN address.
+2. **Shortcuts** app → **+** → the **ⓘ** (details) → turn on **Show in Share
+   Sheet**, and set **Share Sheet Types** to **URLs** only.
+3. Name it **Save to ClipNotes**.
+4. Add these actions in order:
+   - **URL Encode** — Input: **Shortcut Input**
+   - **Text** — value: `exp://<IP>:8081/--/ingest?url=` immediately followed by
+     the **Encoded Text** variable from the previous step
+   - **Open URLs** — Input: the **Text** from the previous step
+5. Save.
+
+Now: in YouTube (or any app), share a video → **Save to ClipNotes**. Expo Go
+opens, the link is submitted, and you land in the library with it processing.
+
+Caveats: works only while `npx expo start` is running on the same Wi-Fi;
+update `<IP>` in the Text action when your network changes. It appears in the
+share sheet's **actions** list as a Shortcut, not as a native app icon in the
+top app row — that native placement is the dev-build path below.
 
 ## What Expo Go can't do (yet)
 
 These need a development build (`expo run:ios` / EAS) rather than Expo Go, and
 are deliberately deferred:
 
-- Real share-sheet extension (M4) — the Shortcuts trick above stands in.
-- Local notifications on job completion (M4).
+- Real share-sheet extension — a native ClipNotes target in the share-sheet
+  app row (next to WhatsApp) is a separate signed app extension; it needs a
+  dev build (EAS or `expo run:ios`) + Apple signing. The Shortcut above is the
+  Expo-Go-compatible stand-in.
+- Local notifications on job completion.
 - Keychain-grade token storage — the device token currently lives in
   AsyncStorage, fine for development.
 
