@@ -438,6 +438,122 @@ ul { margin: 0; padding: 0; list-style: none; }
 .info-card-quiet h3 { color: var(--green-800); font-size: 1.1rem; margin-bottom: 8px; }
 .info-card-quiet p { color: var(--muted); font-size: 0.96rem; }
 
+/* Booking form extras ---------------------------------------------------- */
+.field-label { font-weight: 600; font-size: 0.92rem; color: var(--green-800); }
+.field-hint { font-size: 0.84rem; color: var(--muted); }
+.field-hint-inline { font-weight: 400; }
+input[type="date"] { min-height: 3rem; } /* consistent height across browsers */
+
+/* Service chips */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 6px;
+}
+.service-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.7em 0.9em;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  background: var(--cream);
+  font-size: 0.95rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.service-chip:hover { border-color: var(--green-400); }
+.service-chip input { width: 18px; height: 18px; accent-color: var(--green-600); flex: none; cursor: pointer; }
+.service-chip:has(input:checked) { border-color: var(--green-500); background: rgba(58, 157, 93, 0.1); color: var(--green-800); font-weight: 500; }
+
+/* Photo upload */
+.file-drop {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border: 2px dashed var(--line);
+  border-radius: 14px;
+  background: var(--cream);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.file-drop:hover { border-color: var(--green-400); background: #fff; }
+.file-drop:focus-within { border-color: var(--green-500); box-shadow: 0 0 0 4px rgba(58, 157, 93, 0.12); }
+.file-drop-icon {
+  display: grid; place-items: center;
+  width: 46px; height: 46px; flex: none;
+  border-radius: 12px;
+  background: var(--sand);
+  color: var(--green-600);
+}
+.file-drop-icon svg { width: 24px; height: 24px; }
+.file-drop-text { font-size: 0.92rem; color: var(--muted); line-height: 1.4; }
+.file-drop-text strong { color: var(--green-800); font-family: var(--font-head); }
+/* Keep the real input reachable/clickable but visually out of the way */
+.file-drop input[type="file"] {
+  position: absolute;
+  width: 1px; height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
+.file-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.file-list li { padding: 6px 12px; background: var(--sand); border-radius: 8px; }
+.file-list .file-total { background: transparent; padding: 4px 2px; font-weight: 600; color: var(--green-700); }
+.file-list.over .file-total { color: #b23c39; }
+
+/* "How it works" steps */
+.info-card-steps .steps { display: grid; gap: 18px; }
+.info-card-steps .steps li { display: flex; gap: 14px; align-items: flex-start; }
+.step-num {
+  display: grid; place-items: center;
+  width: 30px; height: 30px; flex: none;
+  border-radius: 50%;
+  background: var(--green-600);
+  color: #fff;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.info-card-steps .steps strong { color: var(--green-800); display: block; }
+.info-card-steps .steps p { color: var(--muted); font-size: 0.92rem; margin-top: 2px; }
+
+/* Thank-you page --------------------------------------------------------- */
+.thanks {
+  background:
+    radial-gradient(80% 120% at 100% 0%, rgba(58,157,93,0.16), transparent 55%),
+    radial-gradient(70% 90% at 0% 100%, rgba(168,216,75,0.12), transparent 60%),
+    var(--cream);
+  min-height: calc(100vh - 72px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 60px 0;
+}
+.thanks-inner { max-width: 620px; }
+.thanks-check {
+  display: grid; place-items: center;
+  width: 74px; height: 74px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  background: var(--green-600);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+.thanks-check svg { width: 38px; height: 38px; }
+.thanks h1 { font-size: clamp(2rem, 4.5vw, 3rem); color: var(--green-900); margin-top: 8px; }
+.thanks .lead { margin: 18px auto 30px; }
+.thanks .lead a { color: var(--green-600); font-weight: 600; }
+.thanks-actions { justify-content: center; }
+
 /* Reveal-on-scroll ------------------------------------------------------- */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.in { opacity: 1; transform: none; }
@@ -488,6 +604,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .cards { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .field-row { grid-template-columns: 1fr; }
+  .service-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; }
   .hero-badge { left: 12px; }
 }

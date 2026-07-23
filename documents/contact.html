@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact — Verdant Grounds</title>
-  <meta name="description" content="Get in touch with Verdant Grounds for a free garden visit and quote. Call, email, or send us a message and we'll get right back to you." />
+  <title>Book a visit — Verdant Grounds</title>
+  <meta name="description" content="Book a free garden visit with Verdant Grounds. Pick a preferred date, tell us what you'd like doing, and add photos of your garden — we'll confirm your slot by email." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -30,7 +30,7 @@
         <a href="index.html#services">Services</a>
         <a href="index.html#why">Why us</a>
         <a href="index.html#stats">Results</a>
-        <a href="contact.html" aria-current="page">Contact</a>
+        <a href="contact.html" aria-current="page">Book a visit</a>
         <a href="contact.html" class="btn btn-primary nav-cta">Get a quote</a>
       </nav>
 
@@ -44,26 +44,110 @@
     <!-- Page hero -->
     <section class="page-hero">
       <div class="container">
-        <span class="eyebrow">📮 Let's talk</span>
-        <h1>Get in touch</h1>
+        <span class="eyebrow">📅 Book a free visit</span>
+        <h1>Book your garden visit</h1>
         <p class="lead">
-          Tell us a little about your garden and what you need. We'll arrange a
-          free visit, take a proper look, and send you an honest, no-obligation
-          quote — usually within a day or two.
+          Pick a preferred date, tell us what you'd like doing, and add a few
+          photos of your garden. We'll review it, confirm your slot by email,
+          and bring an honest, no-obligation quote — usually within a day or two.
         </p>
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- Booking -->
     <section class="section contact-section">
       <div class="container contact-grid">
-        <!-- Form -->
+        <!-- Booking form -->
         <div class="contact-form-wrap">
-          <h2>Send us a message</h2>
-          <form id="contact-form" class="contact-form" novalidate>
+          <h2>Request a booking</h2>
+
+          <!--
+            ============================ IMPORTANT ============================
+            This form emails submissions (including photos) to you via
+            FormSubmit.co — a free service, no account needed.
+
+            1. Change the email in the action below to the inbox that should
+               receive bookings.
+            2. The FIRST time the form is submitted, FormSubmit emails you a
+               one-time activation link. Click it once and the form is live.
+            3. To send bookings to more than one address, put the extra
+               addresses (comma-separated) in the hidden "_cc" field below.
+            See README.md for full details and options.
+            ===================================================================
+          -->
+          <form id="booking-form" class="contact-form"
+                action="https://formsubmit.co/adamfbrown2001@gmail.com"
+                method="POST" enctype="multipart/form-data" novalidate>
+
+            <!-- FormSubmit configuration (hidden) -->
+            <input type="hidden" name="_subject" value="New booking request — Verdant Grounds 🌿" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_cc" value="" />
+            <input type="hidden" name="_next" id="_next" value="https://example.com/thank-you.html" />
+            <!-- Honeypot: hidden from people, catches spam bots -->
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
+
+            <!-- Date + time -->
+            <div class="field-row">
+              <div class="field">
+                <label for="date">Preferred date <span class="req" aria-hidden="true">*</span></label>
+                <input type="date" id="date" name="preferred_date" required />
+                <span class="field-hint">We work Mon–Sat. We'll confirm the exact time with you.</span>
+              </div>
+              <div class="field">
+                <label for="time">Preferred time</label>
+                <select id="time" name="preferred_time">
+                  <option value="No preference" selected>No preference</option>
+                  <option>Morning (8am–12pm)</option>
+                  <option>Afternoon (12pm–6pm)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Services -->
             <div class="field">
-              <label for="name">Your name <span class="req" aria-hidden="true">*</span></label>
-              <input type="text" id="name" name="name" autocomplete="name" required placeholder="Jane Appleseed" />
+              <span class="field-label">What do you need? <span class="field-hint field-hint-inline">(tick all that apply)</span></span>
+              <div class="service-grid">
+                <label class="service-chip"><input type="checkbox" name="services" value="Soil maintenance" /> <span>Soil maintenance</span></label>
+                <label class="service-chip"><input type="checkbox" name="services" value="De-weeding & clearance" /> <span>De-weeding &amp; clearance</span></label>
+                <label class="service-chip"><input type="checkbox" name="services" value="Planting & potting" /> <span>Planting &amp; potting</span></label>
+                <label class="service-chip"><input type="checkbox" name="services" value="Lawn & hedge care" /> <span>Lawn &amp; hedge care</span></label>
+                <label class="service-chip"><input type="checkbox" name="services" value="Seasonal clean-up" /> <span>Seasonal clean-up</span></label>
+                <label class="service-chip"><input type="checkbox" name="services" value="Regular upkeep" /> <span>Regular upkeep</span></label>
+                <label class="service-chip"><input type="checkbox" name="services" value="Something else" /> <span>Something else</span></label>
+              </div>
+            </div>
+
+            <!-- Details -->
+            <div class="field">
+              <label for="details">What would you like doing? <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="details" name="details" rows="5" required placeholder="Tell us about your garden — roughly how big it is, what needs sorting, and anything we should know before we visit…"></textarea>
+            </div>
+
+            <!-- Photos -->
+            <div class="field">
+              <span class="field-label">Photos of your garden <span class="field-hint field-hint-inline">(optional, helps us quote)</span></span>
+              <label class="file-drop" for="photos">
+                <span class="file-drop-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+                </span>
+                <span class="file-drop-text"><strong>Tap to add photos</strong><br />JPG or PNG · up to 10&nbsp;MB in total</span>
+                <input type="file" id="photos" name="attachment" accept="image/*" multiple />
+              </label>
+              <ul class="file-list" id="file-list" hidden></ul>
+            </div>
+
+            <!-- Contact details -->
+            <div class="field-row">
+              <div class="field">
+                <label for="name">Your name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="name" name="name" autocomplete="name" required placeholder="Jane Appleseed" />
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="07123 456789" />
+              </div>
             </div>
 
             <div class="field-row">
@@ -72,36 +156,17 @@
                 <input type="email" id="email" name="email" autocomplete="email" required placeholder="jane@example.com" />
               </div>
               <div class="field">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="07123 456789" />
+                <label for="postcode">Address / postcode</label>
+                <input type="text" id="postcode" name="address" autocomplete="street-address" placeholder="So we can plan the visit" />
               </div>
             </div>
 
-            <div class="field">
-              <label for="service">What can we help with?</label>
-              <select id="service" name="service">
-                <option value="" selected>Choose a service…</option>
-                <option>Soil maintenance</option>
-                <option>De-weeding &amp; clearance</option>
-                <option>Planting &amp; potting</option>
-                <option>Lawn &amp; hedge care</option>
-                <option>Seasonal clean-up</option>
-                <option>Regular upkeep</option>
-                <option>Something else</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="message">Your message <span class="req" aria-hidden="true">*</span></label>
-              <textarea id="message" name="message" rows="5" required placeholder="Tell us about your garden, roughly how big it is, and what you'd like sorted…"></textarea>
-            </div>
-
             <div class="field field-check">
-              <input type="checkbox" id="consent" name="consent" required />
-              <label for="consent">I'm happy for Verdant Grounds to contact me about my enquiry.</label>
+              <input type="checkbox" id="consent" name="consent" value="Yes" required />
+              <label for="consent">I'm happy for Verdant Grounds to contact me about my booking.</label>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block">Send message <span class="arrow" aria-hidden="true">→</span></button>
+            <button type="submit" class="btn btn-primary btn-block" id="booking-submit">Request booking <span class="arrow" aria-hidden="true">→</span></button>
 
             <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
           </form>
@@ -109,6 +174,15 @@
 
         <!-- Details -->
         <aside class="contact-info">
+          <div class="info-card info-card-steps">
+            <h2>How it works</h2>
+            <ol class="steps">
+              <li><span class="step-num">1</span><div><strong>Send your request</strong><p>Pick a date, describe the job and add photos.</p></div></li>
+              <li><span class="step-num">2</span><div><strong>We confirm</strong><p>We check the date and email you to lock it in.</p></div></li>
+              <li><span class="step-num">3</span><div><strong>Free visit &amp; quote</strong><p>We pop round, take a look and quote — no obligation.</p></div></li>
+            </ol>
+          </div>
+
           <div class="info-card">
             <h2>Contact details</h2>
             <ul class="info-list">
@@ -182,7 +256,7 @@
         <a href="index.html#services">Services</a>
         <a href="index.html#why">Why us</a>
         <a href="index.html#stats">Results</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html">Book a visit</a>
       </div>
 
       <div class="footer-col">
