@@ -10,7 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A0%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/favicon-180.png" />
 </head>
 <body>
   <!-- Header -->
@@ -18,9 +20,7 @@
     <div class="container header-inner">
       <a href="index.html" class="brand" aria-label="The Allrounders home">
         <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-          </svg>
+          <img src="assets/logo.svg" alt="" />
         </span>
         <span class="brand-text">
           <span class="brand-tag">The</span>
@@ -31,9 +31,8 @@
       <nav class="nav" id="primary-nav" aria-label="Primary">
         <a href="#services">Services</a>
         <a href="#why">Why us</a>
-        <a href="#stats">Results</a>
         <a href="contact.html">Book a visit</a>
-        <a href="contact.html" class="btn btn-primary nav-cta">Get a quote</a>
+        <a href="contact.html" class="btn btn-primary nav-cta">Book now</a>
       </nav>
 
       <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
@@ -56,29 +55,37 @@
             for the jobs you'd rather hand off, done properly.
           </p>
           <div class="hero-actions">
-            <a href="contact.html" class="btn btn-primary">Book a free visit <span class="arrow" aria-hidden="true">→</span></a>
-            <a href="#services" class="btn btn-ghost">See our services</a>
+            <a href="contact.html" class="btn btn-primary">Book now <span class="arrow" aria-hidden="true">→</span></a>
+            <a href="https://wa.me/447308598257" class="hero-whatsapp" target="_blank" rel="noopener noreferrer">
+              <span class="hero-whatsapp-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3a9 9 0 0 0-7.75 13.5L3 21l4.5-1.25A9 9 0 1 0 12 3z" />
+                  <path d="M8.7 9.6c0 3 2.7 5.7 5.7 5.7" />
+                </svg>
+              </span>
+              <span class="hero-whatsapp-copy">
+                <span class="hero-whatsapp-label">or contact us on WhatsApp</span>
+                <span class="hero-whatsapp-number">07308 598257</span>
+              </span>
+            </a>
           </div>
 
           <ul class="hero-trust">
             <li><strong>4.9★</strong> average rating</li>
-            <li><strong>12+ yrs</strong> experience</li>
-            <li><strong>Fully</strong> insured</li>
           </ul>
         </div>
 
         <div class="hero-card">
-          <div class="hero-photo" role="img" aria-label="Garden and household tools, ready for the next job">
-            <svg class="hero-photo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-            </svg>
-            <svg class="hero-photo-icon hero-photo-icon-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 21c-4-3-7-6-7-10a7 7 0 0 1 14 0c0 4-3 7-7 10z" /><path d="M12 11v6" /><path d="M12 13c1.5 0 2.5-1 2.5-2.5" /><path d="M12 13c-1.5 0-2.5-1-2.5-2.5" />
-            </svg>
+          <div class="hero-photo ba-slide" role="img" aria-label="Before and after photos of a garden transformed by The Allrounders">
+            <img class="ba-img ba-before" id="ba-before-img" src="assets/garden-before-1.jpg" alt="" />
+            <div class="ba-after-wrap" id="ba-after-wrap">
+              <img class="ba-img ba-after" id="ba-after-img" src="assets/garden-after-1.jpg" alt="" />
+            </div>
+            <div class="ba-line" id="ba-line" aria-hidden="true"></div>
+            <span class="ba-tag" id="ba-tag" aria-hidden="true">Before</span>
           </div>
           <div class="hero-badge">
-            <span class="hero-badge-num">600+</span>
-            <span class="hero-badge-label">jobs completed</span>
+            <span class="hero-badge-text">Local &amp; reliable</span>
           </div>
         </div>
       </div>
@@ -213,36 +220,12 @@
       </div>
     </section>
 
-    <!-- Stats -->
-    <section class="section stats" id="stats">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat">
-            <span class="stat-num">12+</span>
-            <span class="stat-label">years in the trade</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">600+</span>
-            <span class="stat-label">jobs completed</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">4.9★</span>
-            <span class="stat-label">average review score</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">100%</span>
-            <span class="stat-label">satisfaction promise</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- CTA banner -->
     <section class="cta">
       <div class="container cta-inner">
         <div>
           <h2>Ready to tick off the to-do list?</h2>
-          <p>Tell us what needs doing — garden or house — and we'll arrange a free, no-obligation visit and quote.</p>
+          <p>Tell us what needs doing — garden or house — and we'll get back to you to arrange it.</p>
         </div>
         <a href="contact.html" class="btn btn-cream">Book a visit <span class="arrow" aria-hidden="true">→</span></a>
       </div>
@@ -255,9 +238,7 @@
       <div class="footer-brand">
         <a href="index.html" class="brand brand-footer" aria-label="The Allrounders home">
           <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-            </svg>
+            <img src="assets/logo.svg" alt="" />
           </span>
           <span class="brand-text">
             <span class="brand-tag">The</span>
@@ -271,14 +252,13 @@
         <h4>Explore</h4>
         <a href="#services">Services</a>
         <a href="#why">Why us</a>
-        <a href="#stats">Results</a>
         <a href="contact.html">Book a visit</a>
       </div>
 
       <div class="footer-col">
         <h4>Get in touch</h4>
-        <a href="tel:+441234567890">01234 567 890</a>
-        <a href="mailto:hello@theallrounders.co.uk">hello@theallrounders.co.uk</a>
+        <a href="tel:+447308598257">+44 7308 598257</a>
+        <a href="mailto:ikonize.business@gmail.com">ikonize.business@gmail.com</a>
         <span class="footer-text">Mon–Sat, 8am–6pm</span>
       </div>
     </div>

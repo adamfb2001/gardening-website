@@ -11,7 +11,7 @@ No build step, no dependencies:
 | `index.html` | Landing page — hero, services, why-us, results, call-to-action |
 | `contact.html` | **Booking page** — pick a date, describe the job, attach photos |
 | `thank-you.html` | Confirmation page shown after a booking is submitted |
-| `css/styles.css` | All styling (navy + amber, practical and trustworthy, fully responsive) |
+| `css/styles.css` | All styling (dark green with gradient accents, fully responsive) |
 | `js/main.js` | Mobile menu, scroll reveals, date limits, photo preview, form validation |
 
 ## View it locally
@@ -19,7 +19,7 @@ No build step, no dependencies:
 Open `index.html` in a browser, or serve the folder:
 
 ```bash
-cd documents
+cd docs
 python3 -m http.server 8000
 # then open http://localhost:8000
 ```
@@ -38,9 +38,7 @@ that supports photo attachments. To turn it on:
    ```html
    <form ... action="https://formsubmit.co/YOUR-EMAIL@example.com" ...>
    ```
-   (It currently points at a personal inbox used to set the site up — switch
-   it to `hello@theallrounders.co.uk` once that mailbox exists and is
-   receiving mail, or leave it pointed at a personal inbox until it does.)
+   (It currently points at `ikonize.business@gmail.com`.)
 
 2. **Activate once.** The first time the form is submitted, FormSubmit emails
    you a confirmation link. Click it once — after that, bookings arrive
@@ -57,8 +55,9 @@ that supports photo attachments. To turn it on:
   submission. The form checks this in the browser and warns the customer if
   they go over.
 - **Availability:** the date picker only allows future dates and blocks Sundays
-  (open Mon–Sat). It's a *requested* date — the booking email asks the customer
-  to wait for your confirmation, which suits a "free visit / quote" business.
+  (open Mon–Sat), and the time field offers hourly slots from 8am–6pm. It's a
+  *requested* date/time — the booking email asks the customer to wait for your
+  confirmation.
 - **Spam:** a hidden honeypot field blocks most bots. To add FormSubmit's
   captcha, set the hidden `_captcha` field to `true` in `contact.html`.
 - **Privacy:** once live, you can swap the raw email in `action` for the random
