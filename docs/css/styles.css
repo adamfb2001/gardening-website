@@ -664,12 +664,13 @@ input[type="date"] { min-height: 2.75rem; } /* consistent height across browsers
     border-bottom: 1px solid var(--line);
     padding: 16px 24px 24px;
     box-shadow: var(--shadow);
-    transform: translateY(-120%);
-    /* visibility guarantees the closed menu (and its Book now CTA) is fully
-       hidden and non-interactive at rest, regardless of the menu's height —
-       the transform alone can leave the bottom of a short menu poking below
-       the top edge of the screen. The delay keeps the slide-up animation
-       visible before it disappears. */
+    /* The menu is anchored 84px down (below the header), so translating up by
+       a percentage of its own height isn't enough to clear the top of the
+       screen — the bottom would peek out. Move it up by its full height PLUS
+       the 84px offset and a buffer, so it's fully off-screen at any height.
+       visibility:hidden (applied after the slide finishes) is a belt-and-
+       braces guarantee it's non-interactive at rest. */
+    transform: translateY(calc(-100% - 100px));
     visibility: hidden;
     transition: transform 0.28s ease, visibility 0s linear 0.28s;
   }
