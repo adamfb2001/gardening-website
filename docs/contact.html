@@ -67,17 +67,18 @@
             This form emails submissions (including photos) to you via
             FormSubmit.co — a free service, no account needed.
 
-            1. Change the email in the action below to the inbox that should
-               receive bookings — it currently points at ikonize.business@gmail.com.
-            2. The FIRST time the form is submitted, FormSubmit emails you a
-               one-time activation link. Click it once and the form is live.
-            3. To send bookings to more than one address, put the extra
-               addresses (comma-separated) in the hidden "_cc" field below.
+            The action below uses FormSubmit's random alias for
+            ikonize.business@gmail.com, so the real address isn't exposed in
+            the page source (protects against spam scrapers). It routes to the
+            same inbox once the form has been activated once via the link
+            FormSubmit emails you on the first submission.
+            To send bookings to more than one address, put the extra addresses
+            (comma-separated) in the hidden "_cc" field below.
             See README.md for full details and options.
             ===================================================================
           -->
           <form id="booking-form" class="contact-form"
-                action="https://formsubmit.co/ikonize.business@gmail.com"
+                action="https://formsubmit.co/28af141144e396392ad1e088cbd1da00"
                 method="POST" enctype="multipart/form-data" novalidate>
 
             <!-- FormSubmit configuration (hidden) -->

@@ -38,7 +38,9 @@ that supports photo attachments. To turn it on:
    ```html
    <form ... action="https://formsubmit.co/YOUR-EMAIL@example.com" ...>
    ```
-   (It currently points at `ikonize.business@gmail.com`.)
+   (It currently uses FormSubmit's random alias for
+   `ikonize.business@gmail.com` so the real address isn't exposed in the page
+   source — it routes to the same inbox.)
 
 2. **Activate once.** The first time the form is submitted, FormSubmit emails
    you a confirmation link. Click it once — after that, bookings arrive
