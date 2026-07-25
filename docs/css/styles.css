@@ -453,8 +453,8 @@ ul { margin: 0; padding: 0; list-style: none; }
    single column can shrink below its content's intrinsic width — otherwise
    native form controls like <input type="date"> force the column (and the
    whole page) wider than the viewport on narrow phones. */
-.contact-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
-.field { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; min-width: 0; }
+.contact-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.field { display: grid; grid-template-columns: minmax(0, 1fr); gap: 7px; min-width: 0; }
 .field label { font-weight: 600; font-size: 0.92rem; color: var(--green-800); }
 .req { color: var(--green-500); }
 .field input, .field select, .field textarea {
@@ -463,26 +463,23 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-family: var(--font-body);
   font-size: 1rem;
   color: var(--ink);
-  padding: 0.85em 1em;
+  padding: 0.72em 0.95em;
   border: 1.5px solid var(--line);
   border-radius: 12px;
   background: var(--cream);
   transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
-.field textarea { resize: vertical; min-height: 120px; }
+.field textarea { resize: vertical; min-height: 96px; }
 .field input:focus, .field select:focus, .field textarea:focus {
   outline: none;
   border-color: var(--green-500);
   background: #fff;
   box-shadow: 0 0 0 4px rgba(44, 143, 77, 0.14);
 }
-.field input.invalid, .field textarea.invalid, .field-check.invalid {
+.field input.invalid, .field textarea.invalid {
   border-color: #d9534f;
   box-shadow: 0 0 0 4px rgba(217, 83, 79, 0.1);
 }
-.field-check { display: flex; align-items: flex-start; gap: 10px; padding: 4px 2px; border-radius: 10px; }
-.field-check input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--green-600); flex: none; }
-.field-check label { font-weight: 400; color: var(--muted); font-size: 0.92rem; }
 .form-status {
   margin-top: 4px;
   padding: 14px 16px;
@@ -524,7 +521,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .field-label { font-weight: 600; font-size: 0.92rem; color: var(--green-800); }
 .field-hint { font-size: 0.84rem; color: var(--muted); }
 .field-hint-inline { font-weight: 400; }
-input[type="date"] { min-height: 3rem; } /* consistent height across browsers */
+input[type="date"] { min-height: 2.75rem; } /* consistent height across browsers */
 
 /* Service chips */
 .service-grid {
@@ -668,9 +665,15 @@ input[type="date"] { min-height: 3rem; } /* consistent height across browsers */
     padding: 16px 24px 24px;
     box-shadow: var(--shadow);
     transform: translateY(-120%);
-    transition: transform 0.28s ease;
+    /* visibility guarantees the closed menu (and its Book now CTA) is fully
+       hidden and non-interactive at rest, regardless of the menu's height —
+       the transform alone can leave the bottom of a short menu poking below
+       the top edge of the screen. The delay keeps the slide-up animation
+       visible before it disappears. */
+    visibility: hidden;
+    transition: transform 0.28s ease, visibility 0s linear 0.28s;
   }
-  .nav.open { transform: translateY(0); }
+  .nav.open { transform: translateY(0); visibility: visible; transition: transform 0.28s ease, visibility 0s; }
   .nav a { padding: 12px 4px; border-bottom: 1px solid var(--line); }
   .nav .nav-cta { margin-top: 12px; justify-content: center; border-bottom: 0; }
   .nav-toggle { display: flex; }

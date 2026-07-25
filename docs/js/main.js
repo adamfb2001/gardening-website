@@ -272,14 +272,12 @@
       var name = form.querySelector("#name");
       var email = form.querySelector("#email");
       var details = form.querySelector("#details");
-      var consent = form.querySelector("#consent");
       var firstInvalid = null;
 
       // Clear previous invalid states.
       [name, email, details, dateInput].forEach(function (field) {
         if (field) field.classList.remove("invalid");
       });
-      consent.closest(".field-check").classList.remove("invalid");
 
       var mark = function (field) {
         if (field) field.classList.add("invalid");
@@ -297,10 +295,6 @@
       if (!name.value.trim()) mark(name);
       if (!isEmail(email.value.trim())) mark(email);
       if (!details.value.trim()) mark(details);
-      if (!consent.checked) {
-        consent.closest(".field-check").classList.add("invalid");
-        firstInvalid = firstInvalid || consent;
-      }
 
       // Photos are optional, but if attached they must fit FormSubmit's cap.
       var tooBig = totalSize() > MAX_BYTES;
