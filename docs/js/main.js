@@ -1,4 +1,4 @@
-/* Verdant Grounds — small progressive-enhancement helpers.
+/* The Allrounders — small progressive-enhancement helpers.
    No dependencies; everything degrades gracefully if JS is off. */
 (function () {
   "use strict";
@@ -198,7 +198,7 @@
         submitBtn.disabled = true;
         submitBtn.textContent = "Sending…";
       }
-      showStatus("Sending your booking request… 🌿", "success");
+      showStatus("Sending your booking request… 🛠️", "success");
       // (No preventDefault: the browser now submits the form for real.)
     });
   }
