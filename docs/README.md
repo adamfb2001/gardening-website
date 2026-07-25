@@ -24,47 +24,37 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-## The booking form (important — one-time setup)
+## The booking form
 
 The booking page lets a customer **pick a preferred date, choose the services
 they need, describe the work, and attach photos**. Everything — including the
 photos — is emailed to you.
 
 Because the site is static (no server of its own), the form posts to
-[**FormSubmit.co**](https://formsubmit.co) — a free service, no account needed,
-that supports photo attachments. To turn it on:
+[**Web3Forms**](https://web3forms.com) — a free service that emails submissions
+straight to your inbox. There's **no activation step**: it works as soon as the
+access key is in the form.
 
-1. **Set your email.** In `contact.html`, change the form's `action`:
-   ```html
-   <form ... action="https://formsubmit.co/YOUR-EMAIL@example.com" ...>
-   ```
-   (It currently uses FormSubmit's random alias for
-   `ikonize.business@gmail.com` so the real address isn't exposed in the page
-   source — it routes to the same inbox.)
-
-2. **Activate once.** The first time the form is submitted, FormSubmit emails
-   you a confirmation link. Click it once — after that, bookings arrive
-   automatically. (Do a test submission yourself to trigger this.)
-
-3. **Send to more than one inbox (optional).** Add addresses to the hidden
-   `_cc` field in `contact.html`:
-   ```html
-   <input type="hidden" name="_cc" value="second@example.com,third@example.com" />
-   ```
+- **Destination inbox** is whatever email the access key was generated for
+  (currently `ikonize.business@gmail.com`). To change it, generate a new key at
+  [web3forms.com](https://web3forms.com) and replace the `access_key` value in
+  `contact.html`.
+- **The access key is safe to have in the page** — it only lets the form deliver
+  to your verified inbox, and the hidden `botcheck` honeypot blocks spam bots.
 
 ### Good to know
-- **Photo limit:** FormSubmit's free tier attaches up to **10 MB total** per
-  submission. The form checks this in the browser and warns the customer if
-  they go over.
-- **Availability:** the date picker only allows future dates and blocks Sundays
-  (open Mon–Sat), and the time field offers hourly slots from 8am–6pm. It's a
-  *requested* date/time — the booking email asks the customer to wait for your
+- **Photo limit:** Web3Forms' free tier caps total attachments at about
+  **5 MB** per submission. The form checks this in the browser and warns the
+  customer if they go over. The booking's text details always come through even
+  if photos are skipped.
+- **Availability:** the date picker only allows future dates, and the time field
+  offers weekday evening (5–8pm) or weekend daytime (8am–7pm) hourly slots. It's
+  a *requested* date/time — the booking email asks the customer to wait for your
   confirmation.
-- **Spam:** a hidden honeypot field blocks most bots. To add FormSubmit's
-  captcha, set the hidden `_captcha` field to `true` in `contact.html`.
-- **Privacy:** once live, you can swap the raw email in `action` for the random
-  alias FormSubmit gives you after activation (e.g.
-  `https://formsubmit.co/abc123…`) so your address isn't visible in the page.
+- **Thank-you page:** on success Web3Forms redirects to `thank-you.html` (set via
+  the hidden `redirect` field, which the script points at the current domain).
+- **Send to more than one inbox:** upgrade options and multi-recipient routing
+  are configured in your Web3Forms dashboard.
 
 ## Deploying to theallrounders.co.uk (GitHub Pages)
 

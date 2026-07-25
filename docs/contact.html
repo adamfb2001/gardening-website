@@ -65,30 +65,28 @@
           <!--
             ============================ IMPORTANT ============================
             This form emails submissions (including photos) to you via
-            FormSubmit.co — a free service, no account needed.
+            Web3Forms (https://web3forms.com) — a free service. Submissions go
+            to the inbox tied to the access_key below (ikonize.business@gmail.com).
+            There's NO activation step: it works as soon as the key is in place.
 
-            The action below uses FormSubmit's random alias for
-            ikonize.business@gmail.com, so the real address isn't exposed in
-            the page source (protects against spam scrapers). It routes to the
-            same inbox once the form has been activated once via the link
-            FormSubmit emails you on the first submission.
-            To send bookings to more than one address, put the extra addresses
-            (comma-separated) in the hidden "_cc" field below.
+            The access_key is safe to have in the page — it only lets the form
+            deliver to your verified inbox, and the hidden "botcheck" honeypot
+            blocks spam bots. To change the destination inbox, generate a new
+            key at web3forms.com and swap it below.
             See README.md for full details and options.
             ===================================================================
           -->
           <form id="booking-form" class="contact-form"
-                action="https://formsubmit.co/28af141144e396392ad1e088cbd1da00"
+                action="https://api.web3forms.com/submit"
                 method="POST" enctype="multipart/form-data" novalidate>
 
-            <!-- FormSubmit configuration (hidden) -->
-            <input type="hidden" name="_subject" value="New booking request — The Allrounders 🛠️" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_cc" value="" />
-            <input type="hidden" name="_next" id="_next" value="https://example.com/thank-you.html" />
+            <!-- Web3Forms configuration (hidden) -->
+            <input type="hidden" name="access_key" value="e3f2151d-7858-4731-8143-6ac4f596d790" />
+            <input type="hidden" name="subject" value="New booking request — The Allrounders 🛠️" />
+            <input type="hidden" name="from_name" value="The Allrounders website" />
+            <input type="hidden" name="redirect" id="_next" value="https://theallrounders.co.uk/thank-you.html" />
             <!-- Honeypot: hidden from people, catches spam bots -->
-            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none" />
 
             <!-- Date -->
             <div class="field">
@@ -133,7 +131,7 @@
                 <span class="file-drop-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
                 </span>
-                <span class="file-drop-text"><strong>Tap to add photos</strong><br />JPG or PNG · up to 10&nbsp;MB in total</span>
+                <span class="file-drop-text"><strong>Tap to add photos</strong><br />JPG or PNG · up to 5&nbsp;MB in total</span>
                 <input type="file" id="photos" name="attachment" accept="image/*" multiple />
               </label>
               <ul class="file-list" id="file-list" hidden></ul>

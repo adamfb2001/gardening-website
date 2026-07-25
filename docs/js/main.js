@@ -131,7 +131,7 @@
   }
 
   /* ----- Booking form -----
-     The form posts to FormSubmit.co, which emails the booking (and any
+     The form posts to Web3Forms, which emails the booking (and any
      attached photos) to the business. We enhance it here: restrict the date
      picker, give feedback on chosen photos, validate before submitting, and —
      crucially — only block the native submit when something is actually wrong.
@@ -140,7 +140,7 @@
   var status = document.getElementById("form-status");
 
   if (form) {
-    var MAX_BYTES = 10 * 1024 * 1024; // FormSubmit's 10 MB total attachment cap
+    var MAX_BYTES = 5 * 1024 * 1024; // Web3Forms free-tier total attachment cap
     var dateInput = form.querySelector("#date");
     var timeSelect = form.querySelector("#time");
     var photos = form.querySelector("#photos");
@@ -256,7 +256,7 @@
           files.length + (files.length === 1 ? " photo · " : " photos · ") +
           formatSize(total) + " total";
         if (total > MAX_BYTES) {
-          summary.textContent += " — too big, please remove some (10 MB max)";
+          summary.textContent += " — too big, please remove some (5 MB max)";
           fileList.classList.add("over");
         } else {
           fileList.classList.remove("over");
@@ -296,13 +296,13 @@
       if (!isEmail(email.value.trim())) mark(email);
       if (!details.value.trim()) mark(details);
 
-      // Photos are optional, but if attached they must fit FormSubmit's cap.
+      // Photos are optional, but if attached they must fit Web3Forms' cap.
       var tooBig = totalSize() > MAX_BYTES;
 
       if (firstInvalid || tooBig) {
         event.preventDefault();
         if (tooBig && !firstInvalid) {
-          showStatus("Your photos add up to more than 10 MB. Please remove a few or use smaller images.", "error");
+          showStatus("Your photos add up to more than 5 MB. Please remove a few or use smaller images.", "error");
           if (photos) photos.focus();
         } else {
           showStatus("Please check the highlighted fields. For the date, choose a future day.", "error");
@@ -311,7 +311,7 @@
         return;
       }
 
-      // Valid — let the real POST to FormSubmit proceed.
+      // Valid — let the real POST to Web3Forms proceed.
       // Point the post-submit redirect at OUR thank-you page on whatever
       // domain the site is served from (works on any host / subpath).
       var next = document.getElementById("_next");
