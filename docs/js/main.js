@@ -131,20 +131,17 @@
   }
 
   /* ----- Booking form -----
-     The form posts to Web3Forms, which emails the booking (and any
-     attached photos) to the business. We enhance it here: restrict the date
-     picker, give feedback on chosen photos, validate before submitting, and —
-     crucially — only block the native submit when something is actually wrong.
-     When everything checks out we let the real POST through. */
+     The form posts to Web3Forms, which emails the booking to the business.
+     (Photos are handled separately over WhatsApp — Web3Forms' free tier can't
+     carry attachments.) We enhance it here: restrict the date picker, validate
+     before submitting, and — crucially — only block the native submit when
+     something is actually wrong. When it checks out we let the real POST go. */
   var form = document.getElementById("booking-form");
   var status = document.getElementById("form-status");
 
   if (form) {
-    var MAX_BYTES = 5 * 1024 * 1024; // Web3Forms free-tier total attachment cap
     var dateInput = form.querySelector("#date");
     var timeSelect = form.querySelector("#time");
-    var photos = form.querySelector("#photos");
-    var fileList = document.getElementById("file-list");
     var submitBtn = document.getElementById("booking-submit");
 
     var showStatus = function (message, type) {
@@ -156,12 +153,6 @@
 
     var isEmail = function (value) {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    };
-
-    var formatSize = function (bytes) {
-      if (bytes < 1024) return bytes + " B";
-      if (bytes < 1024 * 1024) return Math.round(bytes / 1024) + " KB";
-      return (bytes / (1024 * 1024)).toFixed(1) + " MB";
     };
 
     /* -- Restrict the date picker: earliest = tomorrow -- */
@@ -226,46 +217,6 @@
       dateInput.addEventListener("change", updateTimeOptions);
     }
 
-    /* -- Read the currently chosen photos as an array -- */
-    var chosenFiles = function () {
-      return photos && photos.files ? Array.prototype.slice.call(photos.files) : [];
-    };
-
-    var totalSize = function () {
-      return chosenFiles().reduce(function (sum, f) { return sum + f.size; }, 0);
-    };
-
-    /* -- Show a friendly list of chosen photos + total size -- */
-    if (photos && fileList) {
-      photos.addEventListener("change", function () {
-        var files = chosenFiles();
-        fileList.innerHTML = "";
-        if (!files.length) {
-          fileList.hidden = true;
-          return;
-        }
-        files.forEach(function (f) {
-          var li = document.createElement("li");
-          li.textContent = f.name + " (" + formatSize(f.size) + ")";
-          fileList.appendChild(li);
-        });
-        var total = totalSize();
-        var summary = document.createElement("li");
-        summary.className = "file-total";
-        summary.textContent =
-          files.length + (files.length === 1 ? " photo · " : " photos · ") +
-          formatSize(total) + " total";
-        if (total > MAX_BYTES) {
-          summary.textContent += " — too big, please remove some (5 MB max)";
-          fileList.classList.add("over");
-        } else {
-          fileList.classList.remove("over");
-        }
-        fileList.appendChild(summary);
-        fileList.hidden = false;
-      });
-    }
-
     form.addEventListener("submit", function (event) {
       // Look up by id: `form.name` would return the form's own name property,
       // not the <input name="name">, so query the controls explicitly.
@@ -296,18 +247,10 @@
       if (!isEmail(email.value.trim())) mark(email);
       if (!details.value.trim()) mark(details);
 
-      // Photos are optional, but if attached they must fit Web3Forms' cap.
-      var tooBig = totalSize() > MAX_BYTES;
-
-      if (firstInvalid || tooBig) {
+      if (firstInvalid) {
         event.preventDefault();
-        if (tooBig && !firstInvalid) {
-          showStatus("Your photos add up to more than 5 MB. Please remove a few or use smaller images.", "error");
-          if (photos) photos.focus();
-        } else {
-          showStatus("Please check the highlighted fields. For the date, choose a future day.", "error");
-          if (firstInvalid) firstInvalid.focus();
-        }
+        showStatus("Please check the highlighted fields. For the date, choose a future day.", "error");
+        firstInvalid.focus();
         return;
       }
 

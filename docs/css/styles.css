@@ -547,47 +547,28 @@ input[type="date"] { min-height: 2.75rem; } /* consistent height across browsers
 .service-chip input { width: 18px; height: 18px; accent-color: var(--green-600); flex: none; cursor: pointer; }
 .service-chip:has(input:checked) { border-color: var(--green-500); background: rgba(44, 143, 77, 0.1); color: var(--green-800); font-weight: 500; }
 
-/* Photo upload */
-.file-drop {
+/* Photos via WhatsApp prompt */
+.photo-whatsapp {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 20px;
-  border: 2px dashed var(--line);
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--line);
   border-radius: 14px;
   background: var(--cream);
-  cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
-.file-drop:hover { border-color: var(--green-400); background: #fff; }
-.file-drop:focus-within { border-color: var(--green-500); box-shadow: 0 0 0 4px rgba(44, 143, 77, 0.14); }
-.file-drop-icon {
+.photo-whatsapp:hover { border-color: #25d366; background: #fff; }
+.photo-whatsapp-icon {
   display: grid; place-items: center;
-  width: 46px; height: 46px; flex: none;
-  border-radius: 12px;
-  background: var(--sand);
-  color: var(--green-600);
+  width: 44px; height: 44px; flex: none;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
 }
-.file-drop-icon svg { width: 24px; height: 24px; }
-.file-drop-text { font-size: 0.92rem; color: var(--muted); line-height: 1.4; }
-.file-drop-text strong { color: var(--green-800); font-family: var(--font-head); }
-/* Keep the real input reachable/clickable but visually out of the way */
-.file-drop input[type="file"] {
-  position: absolute;
-  width: 1px; height: 1px;
-  opacity: 0;
-  overflow: hidden;
-}
-.file-list {
-  margin-top: 12px;
-  display: grid;
-  gap: 6px;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-.file-list li { padding: 6px 12px; background: var(--sand); border-radius: 8px; }
-.file-list .file-total { background: transparent; padding: 4px 2px; font-weight: 600; color: var(--green-700); }
-.file-list.over .file-total { color: #b23c39; }
+.photo-whatsapp-icon svg { width: 22px; height: 22px; }
+.photo-whatsapp-copy { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.photo-whatsapp-copy strong { color: var(--green-800); font-family: var(--font-head); font-size: 0.98rem; }
 
 /* "How it works" steps */
 .info-card-steps .steps { display: grid; gap: 18px; }

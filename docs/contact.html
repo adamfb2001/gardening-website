@@ -124,17 +124,22 @@
               <textarea id="details" name="details" rows="5" required placeholder="Tell us what needs doing — garden, house, or both — roughly the size of the job, and anything we should know before we visit…"></textarea>
             </div>
 
-            <!-- Photos -->
+            <!-- Photos: handled over WhatsApp — the booking email can't carry
+                 attachments, and phone photos are easiest to send on WhatsApp -->
             <div class="field">
-              <span class="field-label">Photos of the job <span class="field-hint field-hint-inline">(optional, helps us quote)</span></span>
-              <label class="file-drop" for="photos">
-                <span class="file-drop-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+              <span class="field-label">Got photos of the job? <span class="field-hint field-hint-inline">(optional, helps us quote)</span></span>
+              <a href="https://wa.me/447308598257" class="photo-whatsapp" target="_blank" rel="noopener noreferrer">
+                <span class="photo-whatsapp-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a9 9 0 0 0-7.75 13.5L3 21l4.5-1.25A9 9 0 1 0 12 3z" />
+                    <path d="M8.7 9.6c0 3 2.7 5.7 5.7 5.7" />
+                  </svg>
                 </span>
-                <span class="file-drop-text"><strong>Tap to add photos</strong><br />JPG or PNG · up to 5&nbsp;MB in total</span>
-                <input type="file" id="photos" name="attachment" accept="image/*" multiple />
-              </label>
-              <ul class="file-list" id="file-list" hidden></ul>
+                <span class="photo-whatsapp-copy">
+                  <strong>Send them on WhatsApp</strong>
+                  <span class="field-hint">Message your photos to 07308&nbsp;598257 and we'll match them to your booking.</span>
+                </span>
+              </a>
             </div>
 
             <!-- Contact details -->
